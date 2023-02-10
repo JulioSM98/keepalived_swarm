@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  keepalived:
+    image: jsm98/keep_swarm:0.3
+    build: .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+
+      placement:
+        constraints: [ node.role == manager ]
+    environment:
+      KEEPALIVED_VIRTUAL_IPS: "192.168.12.219"
+      KEEPALIVED_INTERFACE: "eth0"
